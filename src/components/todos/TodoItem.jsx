@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import IconButton from '@/components/ui/IconButton'
 import { TODO_CATEGORY_ICON } from '@/constants/icon'
+import Modal from '../ui/Modal';
+import TodoForm from './TodoForm';
+import { createPortal } from 'react-dom';
 
-const TodoItem = ({todo}) => {
+const TodoItem = ({todo, onUpdate}) => {
+  const [modal, setModal] = useState(false);
+  const closeModal = () => setModal(false);
+
   return (
     <li className="flex gap-4 justify-between my-4 py-4 px-4 border-[1px] bg-gray-700 rounded-md shadow-xl">
         <div>
@@ -13,9 +19,13 @@ const TodoItem = ({todo}) => {
             </div>
         </div>
         <div className="flex items-center gap-1">
-          <IconButton icon={'✏️'}/>
+          <IconButton onClick={() => setModal(true)} icon={'✏️'}/>
           <IconButton textColor='text-red-300' icon={'🗑'} />
         </div>
+        {modal && createPortal(
+        <Modal onClose={closeModal}>
+          <TodoForm todo={todo} onClose={closeModal} onUpdate={onUpdate}>Update Items</TodoForm>
+        </Modal>, document.body)}
     </li>
   )
 }

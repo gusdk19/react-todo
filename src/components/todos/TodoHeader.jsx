@@ -18,7 +18,7 @@ const TodoHeader = ({onAdd}) => {
       {/* 모달 호출 */}
       {modal && createPortal(
         <Modal onClose={closeModal}>
-          <TodoForm onAdd={onAdd} onClose={closeModal}/>
+          <TodoForm onAdd={onAdd} onClose={closeModal}>Add Items</TodoForm>
         </Modal>, document.body)}
       <TodoFilter />
     </div>
