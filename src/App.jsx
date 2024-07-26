@@ -28,6 +28,18 @@ function App() {
 
   const [todos, setTodos] = useState(dummyTodos);
 
+  const addTodoHandler = ({title, summary, category}) => {
+    const newTodo = {
+      id: self.crypto.randomUUID(),
+      title,
+      summary,
+      category
+    }
+    const updatedTodos = [...todos, newTodo];
+    setTodos(updatedTodos);
+    
+  }
+
   return (
     <>
       <DefaultLayout>
@@ -41,7 +53,7 @@ function App() {
           </div>
         </header>
         <section className="max-w-xl m-4 mx-auto">
-          <TodoHeader />
+          <TodoHeader onAdd={addTodoHandler}/>
           <TodoBody todos={todos} />
         </section>
       </DefaultLayout>
