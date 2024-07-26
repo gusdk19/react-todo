@@ -27,6 +27,7 @@ const dummyTodos = [
 function App() {
 
   const [todos, setTodos] = useState(dummyTodos);
+  const [selectedCategory, setFilter] = useState('ALL');
 
   const addTodoHandler = ({title, summary, category}) => {
     const newTodo = {
@@ -48,21 +49,26 @@ function App() {
     setTodos(todos.filter(todo => id !== todo.id))
   }
 
+  const filterTodoHandler = () => selectedCategory === 'ALL' ? todos : todos.filter(todo => todo.category === selectedCategory);
+  const filteredTodos = filterTodoHandler();
+  console.log(filteredTodos);
+
   return (
     <>
       <DefaultLayout>
         <header>
           <div className="flex justify-center">
-            <a to="/" className='flex'>
+            <div to="/" className='flex items-center'>
+            <img className='w-20 h-20' src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Hedgehog.png" alt="Hedgehog" />
               <h1 className='py-8 text-red-200 max-w-max text-7xl'>todos
               </h1>
-              <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Cat%20with%20Wry%20Smile.png" alt="Cat with Wry Smile" width="50" height="50" />
-            </a>
+              <img className='w-20 h-20' src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Hedgehog.png" alt="Hedgehog" />
+            </div>
           </div>
         </header>
         <section className="max-w-xl m-4 mx-auto">
-          <TodoHeader onAdd={addTodoHandler}/>
-          <TodoBody todos={todos} onUpdate={updateTodoHandler} onDelete={deleteTodoHandler}/>
+          <TodoHeader onAdd={addTodoHandler} category={selectedCategory} onFilter={setFilter}/>
+          <TodoBody todos={filteredTodos} onUpdate={updateTodoHandler} onDelete={deleteTodoHandler}/>
         </section>
       </DefaultLayout>
     </>

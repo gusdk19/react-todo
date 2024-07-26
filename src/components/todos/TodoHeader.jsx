@@ -6,7 +6,7 @@ import TodoForm from './TodoForm';
 import Modal from '../ui/Modal';
 
 // 함수형 컴포넌트(TodoHeader)
-const TodoHeader = ({onAdd}) => {
+const TodoHeader = ({onAdd, category, onFilter}) => {
   const [modal, setModal] = useState(false);
   const closeModal = () => setModal(false);
 
@@ -20,7 +20,7 @@ const TodoHeader = ({onAdd}) => {
         <Modal onClose={closeModal}>
           <TodoForm onAdd={onAdd} onClose={closeModal}>Add Items</TodoForm>
         </Modal>, document.body)}
-      <TodoFilter />
+      <TodoFilter category={category} onFilter={onFilter}/>
     </div>
   )
 }
