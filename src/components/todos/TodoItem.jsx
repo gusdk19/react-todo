@@ -5,7 +5,7 @@ import Modal from '../ui/Modal';
 import TodoForm from './TodoForm';
 import { createPortal } from 'react-dom';
 
-const TodoItem = ({todo, onUpdate}) => {
+const TodoItem = ({todo, onUpdate, onDelete}) => {
   const [modal, setModal] = useState(false);
   const closeModal = () => setModal(false);
 
@@ -20,7 +20,7 @@ const TodoItem = ({todo, onUpdate}) => {
         </div>
         <div className="flex items-center gap-1">
           <IconButton onClick={() => setModal(true)} icon={'✏️'}/>
-          <IconButton textColor='text-red-300' icon={'🗑'} />
+          <IconButton onClick={() => onDelete(todo.id)} textColor='text-red-300' icon={'🗑'} />
         </div>
         {modal && createPortal(
         <Modal onClose={closeModal}>
